@@ -1,0 +1,56 @@
+#include <iostream>
+#include <fstream>
+
+using namespace std;
+int meret;
+
+bool euleri(int matrix[100][100], int pozicio){
+    for(int i=0; i<meret; i++){
+        if(matrix[pozicio][i]==1){
+            int matrix2[100][100];
+            for(int j=0; j<meret; j++){
+                for(int h=0; h<meret; h++){
+                    matrix2[j][h] = matrix[j][h];
+                }
+            }
+            matrix2[pozicio][i] =0;
+            matrix2[i][pozicio] =0;
+            if(euleri(matrix2,i)){
+                return true;
+            }
+        }
+    }
+    for(int i=0; i<meret; i++){
+        for(int j=0;j<meret; j++){
+            if(matrix[i][j]==1){
+                return false;
+            }
+        }
+    }
+    return true;
+}
+int main()
+{
+    ifstream fin("be2.txt");
+    int n;
+    meret = n;
+    fin >> n;
+    int a[100][100];
+    for(int i=0; i<n; i++){
+        for(int j=0; j<n; j++){
+            fin >> a[i][j];
+
+
+        }
+
+    }
+
+    for(int i=0; i<n; i++){
+        if(euleri(a, i)){
+            cout << "euleri";
+            return 0;
+        }
+    }
+    cout << "nem euleri";
+    return 0;
+}
